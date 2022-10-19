@@ -4,7 +4,8 @@
   "description": "practica de backend para la cafeteria benito santos",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node src/index.js"
+    "start": "babel-node src/index.js",
+    "dev": "nodemon --exec babel-node src/index.js"
   },
   "keywords": [
     "backend",
