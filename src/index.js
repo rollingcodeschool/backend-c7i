@@ -2,6 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import path from 'path';
+//llamar a la conexion a la bd
+import './database';
 
 //crear una instancia de express
 const app = express();
