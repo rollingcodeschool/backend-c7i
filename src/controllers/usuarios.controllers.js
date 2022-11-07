@@ -1,5 +1,6 @@
 import Usuario from "../models/usuario";
 import { validationResult } from "express-validator";
+import bcrypt from 'bcryptjs';
 
 export const login = async (req, res) => {
   try {
@@ -24,7 +25,10 @@ export const login = async (req, res) => {
       });
     }
    
-    if (password !== usuario.password) {
+    // desencriptar el password
+    const passwordValido = bcrypt.compareSync(password, usuario.password)
+// si no es valido el password
+    if (!passwordValido) {
       return res.status(400).json({
         mensaje: "Correo o password invalido - password",
       });
@@ -56,7 +60,7 @@ export const crearUsuario = async (req, res) => {
       });
     }
 
-    const { email } = req.body;
+    const { email, password } = req.body;
 
     //verificar si el email ya existe
     // let usuario = await Usuario.findOne({ email: req.body.email }); //devulve un null
@@ -70,10 +74,12 @@ export const crearUsuario = async (req, res) => {
 
     //guardamos el nuevo usuario en la BD
     usuario = new Usuario(req.body);
-    //generar el token
+    //encriptar contraseña
+    const salt = bcrypt.genSaltSync();
+    usuario.password = bcrypt.hashSync(password, salt)
 
     await usuario.save();
-    
+
     res.status(201).json({
       mensaje: "usuario creado",
       nombre: usuario.nombre,
