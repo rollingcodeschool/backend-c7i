@@ -4,8 +4,11 @@ import morgan from 'morgan';
 import path from 'path';
 import productoRouter from './routes/productos.routes'
 import authRouter from './routes/usuarios.routes'
+import * as dotenv from 'dotenv';
 //llamar a la conexion a la bd
 import './database';
+
+dotenv.config();
 
 //crear una instancia de express
 const app = express();

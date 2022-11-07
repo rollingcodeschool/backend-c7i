@@ -7,6 +7,7 @@ import {
   obtenerProducto,
 } from "../controllers/productos.controllers";
 import { check } from "express-validator";
+import validarJWT from "../helpers/validar-jwt";
 
 //instanciar el router
 const router = Router();
@@ -19,7 +20,7 @@ router
   .route("/productos")
   .get(listarProductos)
   .post(
-    [
+    [ validarJWT,
       check("nombreProducto", "El nombre del producto es obligatorio")
         .notEmpty()
         .isLength({ min: 2, max: 50 })
@@ -48,7 +49,8 @@ router
 router
   .route("/productos/:id")
   .get(obtenerProducto)
-  .put(editarProducto)
-  .delete(borrarProducto);
+  // agrego la validacion del token antes de editar el producto y borrar
+  .put(validarJWT,editarProducto)
+  .delete(validarJWT,borrarProducto);
 
 export default router;
