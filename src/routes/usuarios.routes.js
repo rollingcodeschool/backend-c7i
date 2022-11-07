@@ -12,8 +12,8 @@ router
       check("email", "El email es obligatorio").isEmail(),
       check(
         "password",
-        "El password debe contener 6 caracteres como minimo"
-      ).isLength({ min: 6 }),
+        "El password debe contener 8 caracteres como minimo"
+      ).isLength({ min: 8 }),
       // resultadosValidacion,
     ],
     login
@@ -22,10 +22,10 @@ router
   .route("/nuevo")
   .post(
     [
-      check("usuario", "El nombre es obligatorio").not().isEmpty(),
+      check("nombre", "El nombre es obligatorio").not().isEmpty(),
       check("email", "El email es obligatorio").isEmail(),
-      check("password", "El password debe de ser de 6 caracteres").isLength({
-        min: 6,
+      check("password", "El password debe de ser de 8 caracteres").isLength({
+        min: 8,
       }),
       // resultadosValidacion,
     ],

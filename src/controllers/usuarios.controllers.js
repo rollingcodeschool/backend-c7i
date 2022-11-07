@@ -59,6 +59,7 @@ export const crearUsuario = async (req, res) => {
     const { email } = req.body;
 
     //verificar si el email ya existe
+    // let usuario = await Usuario.findOne({ email: req.body.email }); //devulve un null
     let usuario = await Usuario.findOne({ email }); //devulve un null
     if (usuario) {
       //si el usuario existe
@@ -72,6 +73,7 @@ export const crearUsuario = async (req, res) => {
     //generar el token
 
     await usuario.save();
+    
     res.status(201).json({
       mensaje: "usuario creado",
       nombre: usuario.nombre,
